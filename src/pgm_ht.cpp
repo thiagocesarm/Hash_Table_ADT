@@ -81,15 +81,15 @@ struct KeyEqual {
 
 int main( void )
 {
-    MyHashTable::HashTbl< Account::AcctKey, Account > accounts(3); // Hash table shall have size 23.
+    MyHashTable::HashTbl< Account::AcctKey, Account > accounts(2); // Hash table shall have size 23.
     Account MyAccts[] =
     {
         { "Jose Silva",    1, 1668, 20123, 1500.f },
         { "Carlos Prado",  1, 1668, 35091, 1250.f },
         { "Aline Bastos", 13,   33, 55723,  500.f },
         { "Pedro Gomes",   1, 1801, 87661, 5800.f },
-        { "Julio Gouveia",   12, 1709, 87661, 5800.f },
-        { "Pedro Gomes",   1, 1801, 87661, 5800.f }
+        { "Julio Gouveia",   12, 1709, 33678, 1300.f },
+        { "Raissa Meireles",   52, 8076, 94230, 7800.f }
     };
 
     Account::AcctKey searchKey; // An account key

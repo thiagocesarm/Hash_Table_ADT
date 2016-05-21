@@ -35,7 +35,6 @@ namespace MyHashTable {
             mpDataTable[i].~list();
         }
         mSize = 0;
-        mCount = 0;
     }
 
     //----------------------------------------------------------------------------------------
@@ -77,7 +76,7 @@ namespace MyHashTable {
         // Checks whether rehash needs to be done;
         if(mCount + 1 == mSize )
         {
-           // rehash();
+           rehash();
             end = hashFunction(_newKey) % mSize;
         }   
         
@@ -246,11 +245,8 @@ namespace MyHashTable {
             
         }
         
-        for(auto _list : mpDataTable)
-        {
-            _list.~list();
-        }
         
+        this->~HashTbl();
         mpDataTable = newTable;
         mSize = newSize;
         
