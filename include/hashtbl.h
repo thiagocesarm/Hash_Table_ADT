@@ -21,6 +21,7 @@ namespace MyHashTable {
              *  \param _data Data item.
              */
             HashEntry ( KeyType _key, DataType _data ) : mKey( _key ), mData( _data ) { /* Empty */ };
+            // ~HashEntry(){ mKey.~KeyType(); mData.~DataType();};
             KeyType mKey;   /*!< Stores the key for an entry. */
             DataType mData; /*!< Stores the data for an entry. */
     };

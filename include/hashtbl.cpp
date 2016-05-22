@@ -76,7 +76,7 @@ namespace MyHashTable {
         // Checks whether rehash needs to be done;
         if(mCount + 1 == mSize )
         {
-           rehash();
+            rehash();
             end = hashFunction(_newKey) % mSize;
         }   
         
@@ -112,7 +112,7 @@ namespace MyHashTable {
         // Runs through the list, searching for an element with the same key
         while(it != mpDataTable[end].end())
         {
-            if(true == equalFunction(it->key, _searchKey))
+            if(true == equalFunction(it->mKey, _searchKey))
             {
                 mpDataTable[end].erase(it);
                 mCount--;
@@ -149,7 +149,7 @@ namespace MyHashTable {
         // Runs through the list, searching for an element with the same key
         while(it != mpDataTable[end].end())
         {
-            if(true == equalFunction(it->key, _searchKey))
+            if(true == equalFunction(it->mKey, _searchKey))
             {
                 _dataItem = it->mData;
                 bFound = true;

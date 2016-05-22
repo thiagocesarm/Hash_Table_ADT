@@ -103,11 +103,12 @@ int main( void )
     accounts.showStructure();
 
 
-
+// #define _NOT_NOW
 #ifdef _NOT_NOW
     // Checks for accounts and prints records if found
     cout << endl;
     cout << "Enter account number (CTRL+D to exit program): ";
+    Account acct;
     while ( cin >> searchKey )
     {
         if ( accounts.retrieve( searchKey, acct ) )
@@ -118,6 +119,8 @@ int main( void )
         }
         else
             cout << "Account " << searchKey << " not found." << endl;
+
+        accounts.showStructure();
 
         cout << "Enter account number (CTRL+D to exit program): ";
     }
