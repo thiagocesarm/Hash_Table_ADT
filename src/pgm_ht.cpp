@@ -1,6 +1,7 @@
 #include <iostream>
 #include <functional>
 #include <tuple>
+#include <cmath>
 
 #include "hashtbl.h"
 
@@ -13,7 +14,6 @@ struct Account
     int mBranchCode;        // (key) Branch code.
     int mNumber;            // (key) Account number.
     float mBalance;         // Account balance.
-
     using AcctKey = std::tuple< std::string, int, int, int >;
 
     Account( std::string _Name = "<empty>",
@@ -67,21 +67,25 @@ struct Account
 struct KeyHash {
     std::size_t operator()(const Account::AcctKey& k) const
     {
-        return  std::hash<int>()( k );
+        return  std::hash<std::string>()( std::get<0>(k) ) xor std::hash<int>()( std::get<1>(k) )
+            xor std::hash<int>()( std::get<2>(k) ) xor std::hash<int>()( std::get<3>(k) );
     }
 };
  
 struct KeyEqual {
     bool operator()(const Account::AcctKey& lhs, const Account::AcctKey& rhs) const
     {
-        return lhs == rhs;
+        return (std::get<0>(lhs) == std::get<0>(rhs) and
+                std::get<1>(lhs) == std::get<1>(rhs) and
+                std::get<2>(lhs) == std::get<2>(rhs) and
+                std::get<3>(lhs) == std::get<3>(rhs));
     }
 };
 
 
 int main( void )
 {
-    MyHashTable::HashTbl< Account::AcctKey, Account > accounts(2); // Hash table shall have size 23.
+    MyHashTable::HashTbl< Account::AcctKey, Account, KeyHash, KeyEqual > accounts(2); // Hash table shall have size 23.
     Account MyAccts[] =
     {
         { "Jose Silva",    1, 1668, 20123, 1500.f },

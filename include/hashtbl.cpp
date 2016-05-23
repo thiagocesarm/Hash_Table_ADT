@@ -34,6 +34,7 @@ namespace MyHashTable {
         {
             mpDataTable[i].~list();
         }
+        delete[] mpDataTable;
         mSize = 0;
     }
 
@@ -241,6 +242,7 @@ namespace MyHashTable {
                 auto end (hashFunction(temp.mKey) % newSize);
                 newTable[end].push_front(temp);
                 it++;
+                temp.~Entry();
             }
             
         }
