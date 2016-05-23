@@ -14,7 +14,7 @@ struct Account
     int mNumber;            // (key) Account number.
     float mBalance;         // Account balance.
 
-    using AcctKey = int;
+    using AcctKey = std::tuple< std::string, int, int, int >;
 
     Account( std::string _Name = "<empty>",
              int _BankCode = 1,  // Banco do Brasil.
@@ -33,7 +33,7 @@ struct Account
      */
     AcctKey getKey () const
     {
-        return mNumber;
+        return std::make_tuple( mClientName, mBankCode, mBranchCode, mNumber );
     }
 
     const Account& operator= ( const Account& rhs )
