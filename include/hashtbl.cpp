@@ -30,10 +30,6 @@ namespace MyHashTable {
     template < typename KeyType, typename DataType, typename KeyHash, typename KeyEqual >
     HashTbl< KeyType, DataType, KeyHash, KeyEqual >::~HashTbl ()
     {
-        for(auto i (0u); i < mSize; ++i)
-        {
-            mpDataTable[i].~list();
-        }
         delete[] mpDataTable;
         mSize = 0;
     }
@@ -242,7 +238,6 @@ namespace MyHashTable {
                 auto end (hashFunction(temp.mKey) % newSize);
                 newTable[end].push_front(temp);
                 it++;
-                temp.~Entry();
             }
             
         }

@@ -67,8 +67,10 @@ struct Account
 struct KeyHash {
     std::size_t operator()(const Account::AcctKey& k) const
     {
-        return  std::hash<std::string>()( std::get<0>(k) ) xor std::hash<int>()( std::get<1>(k) )
-            xor std::hash<int>()( std::get<2>(k) ) xor std::hash<int>()( std::get<3>(k) );
+        return  std::hash<std::string>()( std::get<0>(k) ) 
+            xor std::hash<int>()( std::get<1>(k) * pow(23, 1) )
+            xor std::hash<int>()( std::get<2>(k) * pow(23, 2) ) 
+            xor std::hash<int>()( std::get<3>(k) * pow(23, 3) );
     }
 };
  
