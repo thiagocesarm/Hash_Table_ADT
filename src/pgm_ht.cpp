@@ -1,3 +1,14 @@
+/*!
+ *  @mainpage Tabela de Dispersão
+ *  @authors Thiago Cesar Morais Diniz de Lucena
+ *  @authors Yuri Reinaldo da Silva
+ *  @date May, 2016
+ *  @version Complete
+ *
+ *	@file pgm_ht.cpp
+ *
+ *  File with the testing program
+ */
 #include <iostream>
 #include <functional>
 #include <tuple>
@@ -90,13 +101,13 @@ int main( void )
     MyHashTable::HashTbl< Account::AcctKey, Account, KeyHash, KeyEqual > accounts(2); // Hash table shall have size 23.
     Account MyAccts[] =
     {
-        { "Jose Silva",    1, 1668, 20123, 1500.f },
-        { "Carlos Prado",  1, 1668, 35091, 1250.f },
-        { "Aline Bastos", 13,   33, 55723,  500.f },
-        { "Pedro Gomes",   1, 1801, 87661, 5800.f },
-        { "Julio Gouveia",   12, 1709, 33678, 1300.f },
-        { "Raissa Meireles",   52, 8076, 94230, 7800.f }
-    };
+        { "Jose_Silva",    1, 1668, 20123, 1500.f },
+        { "Carlos_Prado",  1, 1668, 35091, 1250.f },
+        { "Aline_Bastos", 13,   33, 55723,  500.f },
+        { "Pedro_Gomes",   1, 1801, 87661, 5800.f },
+        { "Julio_Gouveia",   12, 1709, 33678, 1300.f },
+        { "Raissa_Meireles",   52, 8076, 94230, 7800.f }
+    }; // Names contain _ to help test the remove() method.
 
     Account::AcctKey searchKey; // An account key
     auto nAccts = sizeof( MyAccts ) / sizeof( Account );
@@ -107,16 +118,38 @@ int main( void )
     }
 
     accounts.showStructure();
-
-
-// #define _NOT_NOW
+    
+#define _NOT_NOW
 #ifdef _NOT_NOW
     // Checks for accounts and prints records if found
     cout << endl;
-    cout << "Enter account number (CTRL+D to exit program): ";
     Account acct;
-    while ( cin >> searchKey )
+    std::string name;
+    int bank_code;
+    int bank_branch;
+    int acc_number;
+    char option;
+    
+    while ( 1 )
     {
+        std::cout << "Do you wish to delete an account? y n\n";
+        cin >> option;
+        
+        if( option == 'n' || option == 'N') break;
+        
+        cout << "Enter account data to be deleted\n\n";
+        
+        cout << "Enter accountant's name: ";
+        cin >> name;
+        cout << "Enter account's bank code: ";
+        cin >> bank_code;
+        cout << "Enter account's bank branch code: ";
+        cin >> bank_branch;
+        cout << "Enter account number: ";
+        cin >> acc_number;
+        
+        searchKey = std::make_tuple( name, bank_code, bank_branch, acc_number);
+        
         if ( accounts.retrieve( searchKey, acct ) )
         {
             cout << acct.mNumber << " " << acct.mBalance << endl;
@@ -124,12 +157,11 @@ int main( void )
             accounts.remove( acct.getKey() );
         }
         else
-            cout << "Account " << searchKey << " not found." << endl;
+            cout << "Account not found." << endl;
 
         accounts.showStructure();
-
-        cout << "Enter account number (CTRL+D to exit program): ";
     }
+    
 #endif
 
     std::cout << "\n>>> Normal exiting...\n";
